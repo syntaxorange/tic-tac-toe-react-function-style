@@ -75,6 +75,10 @@ body {
   background-color: beige;
 }
 
+.board-row {
+   display: flex;
+}
+
 .board-row:after {
   clear: both;
   content: '';
@@ -91,4 +95,22 @@ body {
 
 .game-info {
   margin-left: 20px;
+}
+
+.board-heading {
+  display: flex;
+  margin-left: 16px;
+}
+
+.square-col {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16px;
+  height: 17px;
+}
+
+.square-row {
+  font-size: 11px;
+  font-weight: 400;
+  width: 17px;
 }

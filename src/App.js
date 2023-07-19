@@ -40,21 +40,42 @@ function Board({ xIsNext, squares, onPlay }) {
   }
 
   function renderSquares() {
-    return Array(boardSize).fill(null).map((v, row) => {
-      return (
-        <div className="board-row" key={row}>
-          {Array(boardSize).fill(null).map((v, square) => {
-            return <Square 
-              highlight={indexes && indexes.some(v => v === getSquareKey(row, square))}
-              value={squares[getSquareKey(row, square)]} 
-              onSquareClick={() => handleClick(getSquareKey(row, square))}
-              id={getSquareKey(row, square)}
-              key={getSquareKey(row, square)} />
-          })}
-        </div>
+    const boardSquares = [];
+    for (let row = 0; row < boardSize; row++) {
+      const boardRow = [];
+
+      for (let square = 0; square < boardSize; square++) {
+        const squareKey = getSquareKey(row, square);
+
+
+        if (!square) {
+          boardRow.push(<div className="square square-row" key={squareKey}>{row + 1}</div>);
+        }
+
+        boardRow.push(<Square 
+          highlight={indexes && indexes.some(v => v === squareKey)}
+          value={squares[squareKey]} 
+          onSquareClick={() => handleClick(squareKey)}
+          id={squareKey}
+          key={squareKey + 1} />);
+      }
+
+      if (!row) {
+        boardSquares.push(
+          <div className="board-heading" key={row}>
+            {Array(boardSize).fill(null).map((v, index) => <div className="square square-col" key={index}>{index + 1}</div>)}
+          </div>
+        );
+      }
+
+      boardSquares.push(
+        <div className="board-row" key={row + 1}>{boardRow}</div>
       );
-    })
+    }
+    
+    return boardSquares;
   }
+
   return (
     <>
       <div className="status">{status}</div>
